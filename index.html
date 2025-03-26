@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KATIK - Kalkulator Matematika</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header Full -->
+    <header class="header-full">
+        <h1><span class="highlight">KATIK</span> Kalkulator Matematika</h1>
+    </header>
+
+    <!-- Kontainer utama dengan latar putih -->
+    <div class="container">
+        <section class="content-box">
+            <h2>Welcome to Katik</h2>
+            <p class="description">Hai Sobat, Selamat datang di Katik :)</p>
+            <p class="sub-description">Sebuah web apps sederhana yang berfungsi untuk menghitung nilai luas dan keliling bangun datar.</p>
+
+            <!-- Navigation Bar untuk memilih jenis kalkulasi -->
+            <div class="menu">
+                <button id="btnPersegi" class="active">Persegi</button>
+                <button id="btnPersegiPanjang">Persegi Panjang</button>
+            </div>
+
+            <!-- Kalkulator Persegi -->
+            <section id="persegiCalculator" class="calculator">
+                <h2>Luas & Keliling Persegi</h2>
+                <label for="sisi">Masukkan Panjang Sisi:</label>
+                <input type="number" id="sisi" min="1" oninput="validateNumber(this)" placeholder="Masukkan sisi">
+                <p id="error-message" class="error"></p>
+
+                <button id="hitung">Hitung</button>
+                <button id="reset">Reset</button>
+
+                <div id="hasil">
+                    <h3>Hasil Perhitungan:</h3>
+                    <p id="luas"></p>
+                    <p id="keliling"></p>
+                </div>
+            </section>
+
+            <!-- Kalkulator Persegi Panjang -->
+            <section id="persegiPanjangCalculator" class="calculator hidden">
+                <h2>Luas & Keliling Persegi Panjang</h2>
+                <label for="panjang">Masukkan Panjang:</label>
+                <input type="number" id="panjang" min="1" oninput="validateNumber(this)" placeholder="Masukkan panjang">
+
+                <label for="lebar">Masukkan Lebar:</label>
+                <input type="number" id="lebar" min="1" oninput="validateNumber(this)" placeholder="Masukkan lebar">
+
+                <p id="error-message-pp" class="error"></p>
+
+                <button id="hitungPP">Hitung</button>
+                <button id="resetPP">Reset</button>
+
+                <div id="hasilPP">
+                    <h3>Hasil Perhitungan:</h3>
+                    <p id="luasPP"></p>
+                    <p id="kelilingPP"></p>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
