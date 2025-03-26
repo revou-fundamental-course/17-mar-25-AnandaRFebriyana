@@ -20,54 +20,59 @@ btnPersegiPanjang.addEventListener("click", function () {
     btnPersegi.classList.remove("active");
 });
 
-// Kalkulasi Luas dan Keliling Persegi
+// Fungsi validasi input (hanya angka positif)
+function validateNumber(input, errorMsgId) {
+    let value = input.value;
+    let errorMsg = document.getElementById(errorMsgId);
+
+    // Hapus karakter selain angka
+    input.value = value.replace(/[^0-9]/g, '');
+
+    if (input.value === "" || parseFloat(input.value) <= 0) {
+        errorMsg.innerText = "Hanya boleh angka positif lebih dari 0!";
+        input.setCustomValidity("Hanya boleh angka positif lebih dari 0!");
+    } else {
+        errorMsg.innerText = "";
+        input.setCustomValidity("");
+    }
+}
+
+// Tambahkan event listener ke input agar validasi berjalan saat mengetik
+document.getElementById("sisi").addEventListener("input", function () {
+    validateNumber(this, "error-message");
+});
+
+document.getElementById("panjang").addEventListener("input", function () {
+    validateNumber(this, "error-message-pp");
+});
+
+document.getElementById("lebar").addEventListener("input", function () {
+    validateNumber(this, "error-message-pp");
+});
+
+// Kalkulasi Luas dan Keliling Persegi (dengan rumus)
 document.getElementById("hitung").addEventListener("click", function () {
     let sisi = document.getElementById("sisi").value;
     let errorMsg = document.getElementById("error-message");
     let hasilLuas = document.getElementById("luas");
     let hasilKeliling = document.getElementById("keliling");
 
-    // Validasi input
-    function validateNumber(input) {
-        let value = input.value;
-    
-        // Hapus karakter selain angka
-        input.value = value.replace(/[^0-9]/g, '');
-    
-        // Pastikan tidak bisa kosong atau nol
-        if (input.value === "" || input.value <= 0) {
-            input.value = "";
-            input.setCustomValidity("Hanya boleh memasukkan angka");
-        } else {
-            input.setCustomValidity("");
-        }
+    if (sisi === "" || parseFloat(sisi) <= 0) {
+        errorMsg.innerText = "Masukkan panjang sisi yang valid!";
+        hasilLuas.innerText = "";
+        hasilKeliling.innerText = "";
+        return;
     }
 
     // Hitung luas dan keliling
     let luas = sisi * sisi;
     let keliling = 4 * sisi;
 
-    // Tampilkan hasil
+    // Tampilkan hasil dengan rumus
     errorMsg.innerText = "";
-    hasilLuas.innerText = "Luas: " + luas;
-    hasilKeliling.innerText = "Keliling: " + keliling;
+    hasilLuas.innerHTML = `Luas = sisi × sisi <br> = ${sisi} × ${sisi} <br> = <b>${luas}</b>`;
+    hasilKeliling.innerHTML = `Keliling = 4 × sisi <br> = 4 × ${sisi} <br> = <b>${keliling}</b>`;
 });
-// Fungsi validasi input: hanya angka positif, tidak bisa huruf atau negatif
-function validateNumber(input) {
-    let value = input.value;
-
-    // Hapus karakter selain angka
-    input.value = value.replace(/[^0-9]/g, '');
-
-    // Pastikan tidak bisa kosong atau nol
-    if (input.value === "" || input.value <= 0) {
-        input.value = "";
-        input.setCustomValidity("Hanya boleh angka positif lebih dari 0!");
-    } else {
-        input.setCustomValidity("");
-    }
-}
-
 
 // Reset form Persegi
 document.getElementById("reset").addEventListener("click", function () {
@@ -77,7 +82,7 @@ document.getElementById("reset").addEventListener("click", function () {
     document.getElementById("error-message").innerText = "";
 });
 
-// Kalkulasi Luas dan Keliling Persegi Panjang
+// Kalkulasi Luas dan Keliling Persegi Panjang (dengan rumus)
 document.getElementById("hitungPP").addEventListener("click", function () {
     let panjang = document.getElementById("panjang").value;
     let lebar = document.getElementById("lebar").value;
@@ -85,8 +90,7 @@ document.getElementById("hitungPP").addEventListener("click", function () {
     let hasilLuasPP = document.getElementById("luasPP");
     let hasilKelilingPP = document.getElementById("kelilingPP");
 
-    // Validasi input
-    if (panjang === "" || panjang <= 0 || lebar === "" || lebar <= 0) {
+    if (panjang === "" || parseFloat(panjang) <= 0 || lebar === "" || parseFloat(lebar) <= 0) {
         errorMsgPP.innerText = "Masukkan panjang dan lebar yang valid!";
         hasilLuasPP.innerText = "";
         hasilKelilingPP.innerText = "";
@@ -97,10 +101,10 @@ document.getElementById("hitungPP").addEventListener("click", function () {
     let luasPP = panjang * lebar;
     let kelilingPP = 2 * (parseFloat(panjang) + parseFloat(lebar));
 
-    // Tampilkan hasil
+    // Tampilkan hasil dengan rumus
     errorMsgPP.innerText = "";
-    hasilLuasPP.innerText = "Luas: " + luasPP;
-    hasilKelilingPP.innerText = "Keliling: " + kelilingPP;
+    hasilLuasPP.innerHTML = `Luas = panjang × lebar <br> = ${panjang} × ${lebar} <br> = <b>${luasPP}</b>`;
+    hasilKelilingPP.innerHTML = `Keliling = 2 × (panjang + lebar) <br> = 2 × (${panjang} + ${lebar}) <br> = <b>${kelilingPP}</b>`;
 });
 
 // Reset form Persegi Panjang
